@@ -7,8 +7,6 @@ package jrizani.jrspinner;
 /*=============================*/
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
@@ -54,7 +52,7 @@ public class Dialog extends DialogFragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NORMAL, R.style.DialogStyle);
 
@@ -64,9 +62,8 @@ public class Dialog extends DialogFragment {
         }
     }
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog, container, false);
         etSearch = view.findViewById(R.id.search);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -89,7 +86,7 @@ public class Dialog extends DialogFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         if (data != null) {
             tvTitle.setText(title);
@@ -131,6 +128,7 @@ public class Dialog extends DialogFragment {
                 @Override
                 public void onClick(View view) {
                     adapter.reset();
+                    etSearch.setText("");
                 }
             });
 

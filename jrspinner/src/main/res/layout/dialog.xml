@@ -62,14 +62,13 @@
                 android:id="@+id/search"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
                 android:background="@drawable/search_bg"
-                android:drawableStart="@drawable/ic_search"
                 android:drawablePadding="8dp"
                 android:hint="Search"
-                android:paddingStart="8dp"
+                android:paddingStart="48dp"
                 android:paddingEnd="48dp"
                 android:singleLine="true"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -100,6 +99,15 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/search"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/search" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:src="@drawable/ic_search"
+                app:layout_constraintBottom_toBottomOf="@+id/search"
+                app:layout_constraintStart_toStartOf="@+id/search"
                 app:layout_constraintTop_toTopOf="@+id/search" />
 
         </android.support.constraint.ConstraintLayout>
