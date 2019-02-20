@@ -27,7 +27,7 @@ allprojects {
 }
 ```
 
-And implement the dependency to your app-level build-gradle
+Implement the dependency to your app-level build-gradle
 
 ```gradle
 dependencies {
