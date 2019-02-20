@@ -6,36 +6,46 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <jrizani.jrspinner.JRSpinner
-        android:id="@+id/JRSpinner"
-        android:layout_width="0dp"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/til"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:jrs_title="Choose Item"
-        app:layout_constraintTop_toTopOf="parent"
-        app:backgroundTint="@color/colorPrimary"
-        app:jrs_icon_tint="@color/colorPrimary"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="16dp"
+        app:hintEnabled="true"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <jrizani.jrspinner.JRSpinner
+            android:id="@+id/JRSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorPrimary"
+            app:backgroundTint="@color/colorPrimary"
+            app:jrs_icon_tint="@color/colorPrimary"
+            app:jrs_title="Choose Item" />
+
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Selected Index :"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/JRSpinner" />
+        app:layout_constraintTop_toBottomOf="@+id/til" />
 
     <TextView
         android:id="@+id/selectedIndex"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/textView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/JRSpinner" />
+        app:layout_constraintStart_toEndOf="@+id/textView" />
 
 </android.support.constraint.ConstraintLayout>
