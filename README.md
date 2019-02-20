@@ -10,6 +10,7 @@ Custom spinner that inspired by instagram language chooser
 # Table of Content
 1. [Gradle install](#gradle-install)
 2. [How to use](#how-to-use)
+3. [Additional](#additional)
 
 ---
 
@@ -66,17 +67,42 @@ private JRSpinner mySpinner;
 protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    mJRSpinner = findViewById(R.id.JRSpinner);
+    mySpinner = findViewById(R.id.spn_my_spinner);
 
-    mJRSpinner.setItems(getResources().getStringArray(R.array.tesItems)); //this is important, you must set it to set the item list
-    mJRSpinner.setTitle("Choose item programmatically"); //change title of spinner-dialog programmatically
-    mJRSpinner.setExpandTint(R.color.color_default); //change expand icon tint programmatically
+    mySpinner.setItems(getResources().getStringArray(R.array.tesItems)); //this is important, you must set it to set the item list
+    mySpinner.setTitle("Choose item programmatically"); //change title of spinner-dialog programmatically
+    mySpinner.setExpandTint(R.color.color_default); //change expand icon tint programmatically
 
-    mJRSpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() { //set it if you want the callback
+    mySpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() { //set it if you want the callback
         @Override
         public void onItemClick(int position) {
             //do what you want to the selected position
         }
     });
 }
+```
+
+## Additional
+If you want the spinner has a floating label, you can wrap this spinner in Text input layout:
+
+`android.support.design.widget.TextInputLayout` or `com.google.android.material.textfield.TextInputLayout` if you use androidx artifact
+
+```xml
+ <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/til"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hintEnabled="true">
+
+            <jrizani.jrspinner.JRSpinner
+                android:id="@+id/spn_my_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/my_hint"
+                android:textColor="@color/colorPrimary"
+                app:backgroundTint="@color/colorPrimary"
+                app:jrs_title="Choose"
+                app:jrs_icon_tint="@color/colorPrimary"/>
+
+</com.google.android.material.textfield.TextInputLayout>
 ```
