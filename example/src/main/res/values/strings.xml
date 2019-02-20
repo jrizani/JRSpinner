@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Example</string>
+
+    <string-array name="tesItems">
+        <item>Tes1</item>
+        <item>Tes2</item>
+        <item>Tes3</item>
+    </string-array>
+</resources>
