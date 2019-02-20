@@ -9,7 +9,7 @@ Custom spinner that inspired by instagram language chooser
 
 # Table of Content
 1. [Gradle install](#gradle-install)
-2. [How to use](#how-to)
+2. [How to use](#how-to-use)
 
 ---
 
