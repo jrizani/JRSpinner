@@ -43,7 +43,7 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         setLongClickable(false);
         setFocusable(false);
         setSingleLine(true);
-        expandTint = ContextCompat.getColor(getContext(), R.color.color_default);
+        expandTint = ContextCompat.getColor(getContext(), R.color.jrspinner_color_default);
         if (attrs != null) {
             TypedArray typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.JRSpinner);
             if (typedArray != null) {
@@ -53,7 +53,7 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
                 typedArray.recycle();
             }
         }
-        expandDrawable = ContextCompat.getDrawable(getContext(), R.drawable.ic_expand);
+        expandDrawable = ContextCompat.getDrawable(getContext(), R.drawable.jrspinnericon_expand);
         expandDrawable.setColorFilter(new PorterDuffColorFilter(expandTint, PorterDuff.Mode.SRC_IN));
         setIcon();
     }

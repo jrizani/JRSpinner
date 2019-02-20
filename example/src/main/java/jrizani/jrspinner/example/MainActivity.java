@@ -19,8 +19,8 @@ public class MainActivity extends AppCompatActivity {
         mSelectedIndex = findViewById(R.id.selectedIndex);
 
         mJRSpinner.setItems(getResources().getStringArray(R.array.tesItems));
-        mJRSpinner.setTitle("Choose item programmatically");
-        mJRSpinner.setExpandTint(R.color.color_default);
+        mJRSpinner.setTitle("Choose jrspinner_item programmatically");
+        mJRSpinner.setExpandTint(R.color.jrspinner_color_default);
 
         mJRSpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override

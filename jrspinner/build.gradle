@@ -59,7 +59,7 @@ ext {
     siteUrl = 'https://github.com/jrizani/JRSpinner'
     gitUrl = 'https://github.com/jrizani/JRSpinner.git'
 
-    libraryVersion = '0.1.1'
+    libraryVersion = '0.1.3'
 
     developerId = 'juliannoorrizani'
     developerName = 'Julian Noor Rizani'

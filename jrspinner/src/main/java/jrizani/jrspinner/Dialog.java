@@ -64,7 +64,7 @@ public class Dialog extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog, container, false);
+        View view = inflater.inflate(R.layout.jrspinner_layout_dialog, container, false);
         etSearch = view.findViewById(R.id.search);
         recyclerView = view.findViewById(R.id.recyclerView);
         tvTitle = view.findViewById(R.id.title);
