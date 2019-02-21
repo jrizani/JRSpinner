@@ -7,14 +7,25 @@
 Custom spinner yang terinspirasi dengan spinner pemilihan bahasa pada instagram
 
 #### [Lihat daftar release dan changelog](https://github.com/jrizani/JRSpinner/releases)
-<img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_search.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_selected_item.png" width="200px"/>
+<img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_selected.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_search.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_selected_item.png" width="200px"/>
 
 
-# Daftar isi
-1. [Install](#install)
-2. [Cara menggunakan](#cara-menggunakan)
-3. [Tambahan](#tambahan)
-4. [Contoh](#contoh)
+# Table of Content
+1. [Apa yang baru](#apa-yang-baru)
+2. [Install](#install)
+3. [Cara menggunakan](#cara-menggunakan)
+4. [Tambahan](#tambahan)
+5. [Contoh](#contoh)
+
+---
+
+## Apa yang baru
+Apa yang baru pada versi 0.2.4
+```
+1. Tambahan ikon centang pada item yang dipilih
+2. Tambahan fitur reset untuk me-reset item yang dipilih
+3. Memperbaiki bug untuk mendukung backward compatibility
+```
 
 ---
 
