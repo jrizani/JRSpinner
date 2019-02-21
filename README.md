@@ -1,3 +1,5 @@
+English | [Indonesian](https://github.com/jrizani/JRSpinner/blob/master/README_id.md)
+
 # JRSpinner
 [ ![Download](https://api.bintray.com/packages/juliannoorrizani/maven/JRSpinner/images/download.svg) ](https://bintray.com/juliannoorrizani/maven/JRSpinner/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -17,7 +19,7 @@ Custom spinner that inspired by instagram language chooser
 ---
 
 ## Gradle install
-Make sure there is jcenter repository in your project level build.gradle
+Make sure there is `jcenter` repository in your project level build.gradle
 
 ```gradle
 allprojects {
@@ -28,7 +30,7 @@ allprojects {
 }
 ```
 
-Implement the dependency to your app-level build-gradle
+Implement the dependency to your app-level build.gradle
 
 ```gradle
 dependencies {
@@ -51,11 +53,11 @@ Declare the view in your layout
                 app:jrs_icon_tint="@color/colorPrimary"/>
 ```
 
-### Parameter
-| Parameter | Description | Default Value |
+### Attribute
+| Attribute | Description | Default Value |
 | --- | --- | --- |
 | android:hint | hint of spinner | nothing |
-| android:textColor | color of text | default hint color |
+| android:textColor | color of text | default text color |
 | app:backgroundTint | tint of spinner, in default it is change underline color of spinner | default edittext background tint |
 | android:background | if you want your own background of spinner, you can use it | default edittext background |
 | app:jrs_title | there is the title of the spinner dialog | "Choose" |
@@ -110,7 +112,7 @@ If you want the spinner has a floating label, you can wrap this spinner in Text 
 ```
 
 ## Example
-You can found the example code [here](https://github.com/jrizani/JRSpinner/tree/master/example).
+You can found the example code [`here`](https://github.com/jrizani/JRSpinner/tree/master/example).
 
 There is the sample gif
 
