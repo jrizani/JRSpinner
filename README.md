@@ -12,6 +12,7 @@ Custom spinner that inspired by instagram language chooser
 1. [Gradle install](#gradle-install)
 2. [How to use](#how-to-use)
 3. [Additional](#additional)
+4. [Example](#example)
 
 ---
 
@@ -107,3 +108,10 @@ If you want the spinner has a floating label, you can wrap this spinner in Text 
 
 </com.google.android.material.textfield.TextInputLayout>
 ```
+
+## Example
+You can found the example code [here](https://github.com/jrizani/JRSpinner/tree/master/example).
+
+There is the sample gif
+
+<img src="https://github.com/jrizani/JRSpinner/raw/master/ss/sample.gif" width="200px"/>
