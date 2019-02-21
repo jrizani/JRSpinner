@@ -16,18 +16,18 @@ Custom spinner that inspired by instagram language chooser
 ---
 
 ## Gradle install
-This version is not included in jcenter yet, you must add this library's bintray to your project-level build.gradle
+Make sure there is jcenter repository in your project level build.gradle
 
 ```gradle
 allprojects {
     repositories {
         ..
-        maven { url "https://dl.bintray.com/juliannoorrizani/maven"}
+        jcenter()
     }
 }
 ```
 
-And implement the dependency to your app-level build-gradle
+Implement the dependency to your app-level build-gradle
 
 ```gradle
 dependencies {
