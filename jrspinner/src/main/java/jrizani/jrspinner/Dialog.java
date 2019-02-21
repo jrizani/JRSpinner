@@ -13,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,22 +32,24 @@ public class Dialog extends DialogFragment {
     private ImageView reset;
     private View root;
     private CardView card;
-    private View view;
+    private JRSpinner view;
     private JRSpinner.OnItemClickListener listener;
+    private int selected;
 
     public Dialog() {
     }
 
-    public void setListener(JRSpinner.OnItemClickListener listener, View view) {
+    public void setListener(JRSpinner.OnItemClickListener listener, JRSpinner view) {
         this.listener = listener;
         this.view = view;
     }
 
-    public static Dialog newInstance(String title, String[] data) {
+    public static Dialog newInstance(String title, String[] data, int selected) {
         Dialog instance = new Dialog();
         Bundle arguments = new Bundle();
         arguments.putStringArray("data", data);
         arguments.putString("title", title);
+        arguments.putInt("selected", selected);
         instance.setArguments(arguments);
         return instance;
     }
@@ -59,6 +62,7 @@ public class Dialog extends DialogFragment {
         if (getArguments() != null && getArguments().getStringArray("data") != null && getArguments().getString("title") != null) {
             data = getArguments().getStringArray("data");
             title = getArguments().getString("title");
+            selected = getArguments().getInt("selected");
         }
     }
 
@@ -92,8 +96,9 @@ public class Dialog extends DialogFragment {
             tvTitle.setText(title);
             adapter = new Adapter(new Adapter.Listener() {
                 @Override
-                public void onClick(String item, int position) {
-                    ((EditText) Dialog.this.view).setText(item);
+                public void onClick(Pair<Integer, String> item, int position) {
+                    Dialog.this.view.setText(item.second);
+                    Dialog.this.view.setSelected(item.first);
                     if (listener != null) {
                         listener.onItemClick(position);
                     }
@@ -101,7 +106,7 @@ public class Dialog extends DialogFragment {
                 }
             });
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            adapter.update(data);
+            adapter.update(data, selected);
             recyclerView.setAdapter(adapter);
             etSearch.addTextChangedListener(new TextWatcher() {
                 @Override

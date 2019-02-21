@@ -1,6 +1,7 @@
 package jrizani.jrspinner;
 
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -23,6 +24,7 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     private String title = "Select";
     private OnItemClickListener onItemClickListener;
     private Drawable expandDrawable;
+    private int selected = -1;
 
     public JRSpinner(Context context) {
         super(context);
@@ -90,12 +92,38 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         setIcon();
     }
 
+    protected void setSelected(int selected){
+        this.selected = selected;
+    }
+
     @Override
     public boolean performClick() {
-        Dialog dialog = Dialog.newInstance(title, items);
+        Dialog dialog = Dialog.newInstance(title, items, selected);
         dialog.setListener(onItemClickListener, JRSpinner.this);
-        dialog.show(((FragmentActivity) getContext()).getSupportFragmentManager(), dialog.getTag());
+        dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
         return super.performClick();
+    }
+
+    public void clear(){
+        selected = -1;
+        setText("");
+    }
+
+    public static <T extends FragmentActivity> T findActivity(Context context){
+        if (context == null){
+            throw new IllegalArgumentException("Context cannot be null");
+        }
+
+        if (context instanceof FragmentActivity){
+            return (T) context;
+        }else{
+            ContextWrapper contextWrapper = (ContextWrapper) context;
+            Context baseContext = contextWrapper.getBaseContext();
+            if (baseContext == null){
+                throw new IllegalStateException("Activity was not found as base context of view!");
+            }
+            return findActivity(baseContext);
+        }
     }
 
     public interface OnItemClickListener {

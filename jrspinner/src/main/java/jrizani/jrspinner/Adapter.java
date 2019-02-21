@@ -11,6 +11,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -22,12 +23,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private List<Pair<Integer, String>> allItems = new ArrayList<>();
     private List<Pair<Integer, String>> tempItems = new ArrayList<>();
     private Listener listener;
+    private int selected;
 
     public Adapter(Listener listener) {
         this.listener = listener;
     }
 
-    public void update(String[] items) {
+    public void update(String[] items, int selected) {
+        this.selected = selected;
         this.items.clear();
         this.allItems.clear();
         for (int i = 0; i < items.length; i++) {
@@ -37,6 +40,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     }
 
     public void update(String query) {
+        Pair<Integer, String> selectedItem;
         for (Pair<Integer, String> item : allItems) {
             if (item.second.toLowerCase().contains(query.toLowerCase())) {
                 tempItems.add(item);
@@ -75,24 +79,32 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView label;
+        private ImageView ivSelected;
 
         ViewHolder(View itemView) {
             super(itemView);
             label = itemView.findViewById(R.id.label);
+            ivSelected = itemView.findViewById(R.id.selected);
         }
 
         void bind(final Pair<Integer, String> item) {
+            if (item.first == selected){
+                ivSelected.setVisibility(View.VISIBLE);
+            }else{
+                ivSelected.setVisibility(View.GONE);
+            }
+
             label.setText(item.second);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    listener.onClick(item.second, item.first);
+                    listener.onClick(item, item.first);
                 }
             });
         }
     }
 
     interface Listener {
-        void onClick(String item, int position);
+        void onClick(Pair<Integer, String> item, int position);
     }
 }
