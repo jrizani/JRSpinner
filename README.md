@@ -3,6 +3,7 @@ English | [Indonesian](https://github.com/jrizani/JRSpinner/blob/master/README_i
 # JRSpinner
 [ ![Download](https://api.bintray.com/packages/juliannoorrizani/maven/JRSpinner/images/download.svg) ](https://bintray.com/juliannoorrizani/maven/JRSpinner/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JRSpinner-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7528)
 
 Custom spinner that inspired by instagram language chooser
 
