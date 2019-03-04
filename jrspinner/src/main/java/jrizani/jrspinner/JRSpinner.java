@@ -86,6 +86,11 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     }
 
     @Override
+    public boolean isSuggestionsEnabled() {
+        return false;
+    }
+
+    @Override
     public void postInvalidate() {
         super.postInvalidate();
         expandDrawable.setColorFilter(new PorterDuffColorFilter(expandTint, PorterDuff.Mode.SRC_IN));
