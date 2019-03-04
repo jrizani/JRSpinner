@@ -2,8 +2,8 @@
     <string name="app_name">Example</string>
 
     <string-array name="tesItems">
-        <item>Tes1</item>
-        <item>Tes2</item>
-        <item>Tes3</item>
+        <item>teszteljünk egyet</item>
+        <item>teszt két</item>
+        <item>teszt három</item>
     </string-array>
 </resources>
