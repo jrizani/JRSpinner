@@ -3,20 +3,30 @@ English | [Indonesian](https://github.com/jrizani/JRSpinner/blob/master/README_i
 # JRSpinner
 [ ![Download](https://api.bintray.com/packages/juliannoorrizani/maven/JRSpinner/images/download.svg) ](https://bintray.com/juliannoorrizani/maven/JRSpinner/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JRSpinner-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7528)
 
 Custom spinner that inspired by instagram language chooser
 
 #### [View Releases and Changelogs](https://github.com/jrizani/JRSpinner/releases)
-<img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_search.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_selected_item.png" width="200px"/>
+<img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_selected.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_search.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_selected_item.png" width="200px"/>
 
 
 # Table of Content
-1. [Gradle install](#gradle-install)
-2. [How to use](#how-to-use)
-3. [Additional](#additional)
-4. [Example](#example)
+1. [What's new](#whats-new)
+2. [Gradle install](#gradle-install)
+3. [How to use](#how-to-use)
+4. [Additional](#additional)
+5. [Example](#example)
 
 ---
+
+## What's new
+What's new in version 0.2.4
+```
+1. Add check icon in selected item
+2. Add reset function to reset JRSpinner selected item
+3. Bug fixing to support backward compatibility
+```
 
 ## Gradle install
 Make sure there is `jcenter` repository in your project level build.gradle
