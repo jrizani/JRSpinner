@@ -21,11 +21,9 @@ Custom spinner yang terinspirasi dengan spinner pemilihan bahasa pada instagram
 ---
 
 ## Apa yang baru
-Apa yang baru pada versi 0.2.4
+Apa yang baru pada versi 0.2.5
 ```
-1. Tambahan ikon centang pada item yang dipilih
-2. Tambahan fitur reset untuk me-reset item yang dipilih
-3. Memperbaiki bug untuk mendukung backward compatibility
+1. Pengecekan pengejaan dinonaktifkan
 ```
 
 ---
