@@ -20,16 +20,46 @@ import java.util.List;
 /*         20 Feb 2019         */
 /*=============================*/
 
+/**
+ * custom view that used as spinner
+ */
 public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
 
+    /**
+     * all items text to show in spinner dialog
+     */
     private String[] items;
+    /**
+     * tint of expand icon
+     */
     private int expandTint;
+    /**
+     * the title of spinner dialog
+     */
     private String title = "Select";
+    /**
+     * listener to listen when item click (used when use non multiple spinner)
+     */
     private OnItemClickListener onItemClickListener;
+    /**
+     * icon of expand
+     */
     private Drawable expandDrawable;
+    /**
+     * selected position of non multiple spinner
+     */
     private int selected = -1;
+    /**
+     * the field to know that this spinner is multiple or no
+     */
     private boolean multiple = false;
+    /**
+     * selected position of multiple listener
+     */
     private List<Integer> multipleSelected = new ArrayList<>();
+    /**
+     * listener to listen when multiple item selected (used when use multiple spinner)
+     */
     private JRSpinner.OnSelectMultipleListener onSelectMultipleListener;
 
     public JRSpinner(Context context) {
@@ -47,6 +77,11 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         init(attrs);
     }
 
+    /**
+     * method that initialize the view
+     *
+     * @param attrs attribute of view
+     */
     private void init(AttributeSet attrs) {
         setLongClickable(false);
         setFocusable(false);
@@ -67,44 +102,85 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         setIcon();
     }
 
+    /**
+     * method to set the icon of expand
+     */
     private void setIcon() {
         Drawable[] drawables = getCompoundDrawables();
 
         setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], expandDrawable, drawables[3]);
     }
 
+    /**
+     * method to set tint of expand icon
+     *
+     * @param expandTint this is the tint
+     */
     public void setExpandTint(int expandTint) {
         this.expandTint = expandTint;
         postInvalidate();
     }
 
+    /**
+     * method to set the item to show in spinner dialog
+     *
+     * @param items all items to show
+     */
     public void setItems(String[] items) {
         this.items = items;
         postInvalidate();
     }
 
+    /**
+     * method to set the title of spinner dialog
+     *
+     * @param title the title
+     */
     public void setTitle(String title) {
         this.title = title;
         postInvalidate();
     }
 
+    /**
+     * method to set use multiple spinner or no
+     *
+     * @param multiple use multiple spinner or no
+     */
     public void setMultiple(boolean multiple) {
         this.multiple = multiple;
     }
 
+    /**
+     * add the item click listener when use non multiple spinner
+     *
+     * @param onItemClickListener the listener
+     */
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
     }
 
+    /**
+     * add the select multiple item listener when use multiple spinner
+     *
+     * @param onSelectMultipleListener the listener
+     */
     public void setOnSelectMultipleListener(OnSelectMultipleListener onSelectMultipleListener) {
         this.onSelectMultipleListener = onSelectMultipleListener;
     }
 
+    /**
+     * it is used to disabled auto spelling check
+     *
+     * @return suggestion is enabled
+     */
     @Override
     public boolean isSuggestionsEnabled() {
         return false;
     }
 
+    /**
+     * call when property change by method
+     */
     @Override
     public void postInvalidate() {
         super.postInvalidate();
@@ -112,10 +188,18 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         setIcon();
     }
 
+    /**
+     * set the selected item position when use non multiple spinner
+     *
+     * @param selected the position
+     */
     protected void setSelected(int selected) {
         this.selected = selected;
     }
 
+    /**
+     * call when click on spinner view and show the dialog
+     */
     @Override
     public boolean performClick() {
         if (!multiple) {
@@ -130,6 +214,9 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         return super.performClick();
     }
 
+    /**
+     * method to clear selected item(s)
+     */
     public void clear() {
         if (multiple) {
             multipleSelected.clear();
@@ -139,6 +226,13 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         setText("");
     }
 
+    /**
+     * method to get activity of the view
+     *
+     * @param context context where view found
+     * @param <T>     the return must be extend FragmentActivity
+     * @return object that extend FragmentActivity
+     */
     public static <T extends FragmentActivity> T findActivity(Context context) {
         if (context == null) {
             throw new IllegalArgumentException("Context cannot be null");
@@ -156,15 +250,26 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         }
     }
 
+    /**
+     * set the selected items position when use multiple spinner
+     *
+     * @param selected selected positions
+     */
     protected void setSelected(List<Integer> selected) {
         multipleSelected.clear();
         multipleSelected.addAll(selected);
     }
 
+    /**
+     * the item click listener
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
+    /**
+     * the select multiple listener
+     */
     public interface OnSelectMultipleListener {
         void onMultipleSelected(List<Integer> selectedPosition);
     }

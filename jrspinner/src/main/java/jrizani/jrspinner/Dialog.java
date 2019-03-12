@@ -22,10 +22,20 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * dialog that showed when use non multiple dialog
+ */
 public class Dialog extends DialogFragment {
 
+    /**
+     * items of spinner
+     */
     private String[] data;
+    /**
+     * title of dialog
+     */
     private String title;
+
     private EditText etSearch;
     private RecyclerView recyclerView;
     private TextView tvTitle;
@@ -33,18 +43,40 @@ public class Dialog extends DialogFragment {
     private ImageView reset;
     private View root;
     private CardView card;
+
+    /**
+     * the spinner view
+     */
     private JRSpinner view;
+    /**
+     * on item click listener
+     */
     private JRSpinner.OnItemClickListener listener;
+    /**
+     * selected position
+     */
     private int selected;
 
     public Dialog() {
     }
 
+    /**
+     * method to set the listener
+     * @param listener on click listener
+     * @param view spinner view
+     */
     public void setListener(JRSpinner.OnItemClickListener listener, JRSpinner view) {
         this.listener = listener;
         this.view = view;
     }
 
+    /**
+     * method to create dialog object
+     * @param title title of dialog
+     * @param data items of spinner
+     * @param selected selected position
+     * @return the dialog
+     */
     public static Dialog newInstance(String title, String[] data, int selected) {
         Dialog instance = new Dialog();
         Bundle arguments = new Bundle();

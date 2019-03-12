@@ -26,10 +26,20 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * dialog that showed when use multiple spinner
+ */
 public class MultipleDialog extends DialogFragment {
 
+    /**
+     * items of spinner
+     */
     private String[] data;
+    /**
+     * title of dialog
+     */
     private String title;
+
     private EditText etSearch;
     private RecyclerView recyclerView;
     private TextView tvTitle;
@@ -38,18 +48,40 @@ public class MultipleDialog extends DialogFragment {
     private View root;
     private Button btnSelect;
     private CardView card;
+
+    /**
+     * the spinner view
+     */
     private JRSpinner view;
+    /**
+     * on multiple items selected listener
+     */
     private JRSpinner.OnSelectMultipleListener listener;
+    /**
+     * selected items position
+     */
     private List<Integer> selected;
 
     public MultipleDialog() {
     }
 
+    /**
+     * method to set the listener
+     * @param listener on multiple items selected listener
+     * @param view spinner view
+     */
     public void setListener(JRSpinner.OnSelectMultipleListener listener, JRSpinner view) {
         this.listener = listener;
         this.view = view;
     }
 
+    /**
+     * method to create dialog object
+     * @param title title of dialog
+     * @param data items of spinner
+     * @param selected selected items position
+     * @return the dialog
+     */
     public static MultipleDialog newInstance(String title, String[] data, List<Integer> selected) {
         MultipleDialog instance = new MultipleDialog();
         Bundle arguments = new Bundle();
