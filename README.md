@@ -98,11 +98,7 @@ protected void onCreate(Bundle savedInstanceState) {
       mJRSpinner.setOnSelectMultipleListener(new JRSpinner.OnSelectMultipleListener() {
           @Override
           public void onMultipleSelected(List<Integer> selectedPosition) {
-              StringBuilder text = new StringBuilder();
-              for (int item: selectedPosition){
-                  text.append(item).append(" | ");
-              }
-              mSelectedIndex.setText(text);
+              //do what you want to selected position list
           }
       }); //use this listener instead if you use multiple
 }
