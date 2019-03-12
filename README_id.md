@@ -1,7 +1,7 @@
 [English](https://github.com/jrizani/JRSpinner/blob/master/README.md) | Indonesian
 
 # JRSpinner
-[ ![Download](https://api.bintray.com/packages/juliannoorrizani/maven/JRSpinner/images/download.svg) ](https://bintray.com/juliannoorrizani/maven/JRSpinner/_latestVersion)
+[![](https://jitpack.io/v/jrizani/JRSpinner.svg)](https://jitpack.io/#jrizani/JRSpinner)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JRSpinner-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7528)
 
@@ -21,21 +21,22 @@ Custom spinner yang terinspirasi dengan spinner pemilihan bahasa pada instagram
 ---
 
 ## Apa yang baru
-Apa yang baru pada versi 0.2.5
+Apa yang baru pada versi 1.0.0
 ```
-1. Pengecekan pengejaan dinonaktifkan
+1. mengganti repository ke jitpack.io
+2. menambah fitur memilih multiple
 ```
 
 ---
 
 ## Install
-Pastikan terdapat repository `jcenter` pada build.gradle level project anda.
+Pastikan terdapat repository `jitpack.io` pada build.gradle level project anda.
 
 ```gradle
 allprojects {
     repositories {
         ..
-        jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 ```
@@ -45,7 +46,7 @@ Implementasi JRSpinner pada build.gradle level app anda.
 ```gradle
 dependencies {
   ..
-  implementation 'jrizani:jrspinner:$version'
+  implementation 'com.github.jrizani:JRSpinner:$version'
 }
 ```
 
@@ -60,7 +61,8 @@ Deklarasikan view pada layout anda.
                 android:textColor="@color/colorPrimary"
                 app:backgroundTint="@color/colorPrimary"
                 app:jrs_title="Choose"
-                app:jrs_icon_tint="@color/colorPrimary"/>
+                app:jrs_icon_tint="@color/colorPrimary"
+                app:jrs_multiple="true"/>
 ```
 
 ### Atribut
@@ -72,6 +74,7 @@ Deklarasikan view pada layout anda.
 | android:background | jika ingin menggunakan background sendiri, gunakan atribut ini | background default edittext |
 | app:jrs_title | judul dari spinner dialog yang akan muncul | "Choose" |
 | app:jrs_icon_tint | warna dari ikon expand | #99000000 |
+| app:jrs_multiple | pilih apakah menggunakan pemilihan multiple atau tidak | false |
 
 Kamu juga bisa mengubah atribut secara programmatically.
 ```java
@@ -87,12 +90,19 @@ protected void onCreate(Bundle savedInstanceState) {
     mySpinner.setTitle("Choose item programmatically"); //mengubah judul dialog secara programmatically
     mySpinner.setExpandTint(R.color.color_default); //mengubah warna icon secara programmatically
 
-    mySpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() { //gunakan ini jika ingin mendapatkan callback saat melakukan klik pada item
-        @Override
-        public void onItemClick(int position) {
-            //do what you want to the selected position
-        }
-    });
+//    mySpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() { //set it if you want the callback
+//        @Override
+//        public void onItemClick(int position) {
+//            //do what you want to the selected position
+//        }
+//    });
+
+      mJRSpinner.setOnSelectMultipleListener(new JRSpinner.OnSelectMultipleListener() {
+          @Override
+          public void onMultipleSelected(List<Integer> selectedPosition) {
+              //do what you want to selected position list
+          }
+      }); //use this listener instead if you use multiple
 }
 ```
 
