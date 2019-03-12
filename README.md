@@ -21,11 +21,9 @@ Custom spinner that inspired by instagram language chooser
 ---
 
 ## What's new
-What's new in version 0.2.4
+What's new in version 0.2.5
 ```
-1. Add check icon in selected item
-2. Add reset function to reset JRSpinner selected item
-3. Bug fixing to support backward compatibility
+1. Disable spell checking
 ```
 
 ## Gradle install
