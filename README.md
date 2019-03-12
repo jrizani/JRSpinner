@@ -1,7 +1,7 @@
 English | [Indonesian](https://github.com/jrizani/JRSpinner/blob/master/README_id.md)
 
 # JRSpinner
-[ ![Download](https://api.bintray.com/packages/juliannoorrizani/maven/JRSpinner/images/download.svg) ](https://bintray.com/juliannoorrizani/maven/JRSpinner/_latestVersion)
+[![](https://jitpack.io/v/jrizani/JRSpinner.svg)](https://jitpack.io/#jrizani/JRSpinner)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-JRSpinner-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7528)
 
@@ -21,19 +21,20 @@ Custom spinner that inspired by instagram language chooser
 ---
 
 ## What's new
-What's new in version 0.2.5
+What's new in version 1.0.0
 ```
-1. Disable spell checking
+1. change repository to jitpack.io
+2. add multiple select
 ```
 
 ## Gradle install
-Make sure there is `jcenter` repository in your project level build.gradle
+Make sure there is `jitpack.io` repository in your project level build.gradle
 
 ```gradle
 allprojects {
     repositories {
         ..
-        jcenter()
+        maven { url "https://jitpack.io" }
     }
 }
 ```
@@ -43,7 +44,7 @@ Implement the dependency to your app-level build.gradle
 ```gradle
 dependencies {
   ..
-  implementation 'jrizani:jrspinner:$version'
+  implementation 'com.github.jrizani:JRSpinner:$version'
 }
 ```
 
@@ -58,7 +59,8 @@ Declare the view in your layout
                 android:textColor="@color/colorPrimary"
                 app:backgroundTint="@color/colorPrimary"
                 app:jrs_title="Choose"
-                app:jrs_icon_tint="@color/colorPrimary"/>
+                app:jrs_icon_tint="@color/colorPrimary"
+                app:jrs_multiple="true"/>
 ```
 
 ### Attribute
@@ -70,6 +72,7 @@ Declare the view in your layout
 | android:background | if you want your own background of spinner, you can use it | default edittext background |
 | app:jrs_title | there is the title of the spinner dialog | "Choose" |
 | app:jrs_icon_tint | color tint of expand icon | #99000000 |
+| app:jrs_multiple | choose is it use multiple select or no | false |
 
 You also can set the parameter programmatically
 ```java
@@ -85,12 +88,23 @@ protected void onCreate(Bundle savedInstanceState) {
     mySpinner.setTitle("Choose item programmatically"); //change title of spinner-dialog programmatically
     mySpinner.setExpandTint(R.color.color_default); //change expand icon tint programmatically
 
-    mySpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() { //set it if you want the callback
-        @Override
-        public void onItemClick(int position) {
-            //do what you want to the selected position
-        }
-    });
+//    mySpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() { //set it if you want the callback
+//        @Override
+//        public void onItemClick(int position) {
+//            //do what you want to the selected position
+//        }
+//    });
+
+      mJRSpinner.setOnSelectMultipleListener(new JRSpinner.OnSelectMultipleListener() {
+          @Override
+          public void onMultipleSelected(List<Integer> selectedPosition) {
+              StringBuilder text = new StringBuilder();
+              for (int item: selectedPosition){
+                  text.append(item).append(" | ");
+              }
+              mSelectedIndex.setText(text);
+          }
+      }); //use this listener instead if you use multiple
 }
 ```
 
