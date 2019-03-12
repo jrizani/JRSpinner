@@ -10,6 +10,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*=============================*/
 /*            AUTHOR           */
 /*          JULIAN NR          */
@@ -25,6 +28,9 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     private OnItemClickListener onItemClickListener;
     private Drawable expandDrawable;
     private int selected = -1;
+    private boolean multiple = false;
+    private List<Integer> multipleSelected = new ArrayList<>();
+    private JRSpinner.OnSelectMultipleListener onSelectMultipleListener;
 
     public JRSpinner(Context context) {
         super(context);
@@ -52,6 +58,7 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
                 title = typedArray.getString(R.styleable.JRSpinner_jrs_title) == null ? "Select" : typedArray.getString(
                         R.styleable.JRSpinner_jrs_title);
                 expandTint = typedArray.getColor(R.styleable.JRSpinner_jrs_icon_tint, expandTint);
+                multiple = typedArray.getBoolean(R.styleable.JRSpinner_jrs_multiple, false);
                 typedArray.recycle();
             }
         }
@@ -81,8 +88,16 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         postInvalidate();
     }
 
+    public void setMultiple(boolean multiple) {
+        this.multiple = multiple;
+    }
+
     public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public void setOnSelectMultipleListener(OnSelectMultipleListener onSelectMultipleListener) {
+        this.onSelectMultipleListener = onSelectMultipleListener;
     }
 
     @Override
@@ -97,41 +112,60 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         setIcon();
     }
 
-    protected void setSelected(int selected){
+    protected void setSelected(int selected) {
         this.selected = selected;
     }
 
     @Override
     public boolean performClick() {
-        Dialog dialog = Dialog.newInstance(title, items, selected);
-        dialog.setListener(onItemClickListener, JRSpinner.this);
-        dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
+        if (!multiple) {
+            Dialog dialog = Dialog.newInstance(title, items, selected);
+            dialog.setListener(onItemClickListener, JRSpinner.this);
+            dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
+        } else {
+            MultipleDialog dialog = MultipleDialog.newInstance(title, items, multipleSelected);
+            dialog.setListener(onSelectMultipleListener, JRSpinner.this);
+            dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
+        }
         return super.performClick();
     }
 
-    public void clear(){
-        selected = -1;
+    public void clear() {
+        if (multiple) {
+            multipleSelected.clear();
+        } else {
+            selected = -1;
+        }
         setText("");
     }
 
-    public static <T extends FragmentActivity> T findActivity(Context context){
-        if (context == null){
+    public static <T extends FragmentActivity> T findActivity(Context context) {
+        if (context == null) {
             throw new IllegalArgumentException("Context cannot be null");
         }
 
-        if (context instanceof FragmentActivity){
+        if (context instanceof FragmentActivity) {
             return (T) context;
-        }else{
+        } else {
             ContextWrapper contextWrapper = (ContextWrapper) context;
             Context baseContext = contextWrapper.getBaseContext();
-            if (baseContext == null){
+            if (baseContext == null) {
                 throw new IllegalStateException("Activity was not found as base context of view!");
             }
             return findActivity(baseContext);
         }
     }
 
+    protected void setSelected(List<Integer> selected) {
+        multipleSelected.clear();
+        multipleSelected.addAll(selected);
+    }
+
     public interface OnItemClickListener {
         void onItemClick(int position);
+    }
+
+    public interface OnSelectMultipleListener {
+        void onMultipleSelected(List<Integer> selectedPosition);
     }
 }

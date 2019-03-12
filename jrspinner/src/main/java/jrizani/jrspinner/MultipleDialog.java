@@ -6,6 +6,7 @@ package jrizani.jrspinner;
 /*         19 Feb 2019         */
 /*=============================*/
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.CardView;
@@ -22,7 +23,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Dialog extends DialogFragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MultipleDialog extends DialogFragment {
 
     private String[] data;
     private String title;
@@ -32,25 +36,26 @@ public class Dialog extends DialogFragment {
     private Adapter adapter;
     private ImageView reset;
     private View root;
+    private Button btnSelect;
     private CardView card;
     private JRSpinner view;
-    private JRSpinner.OnItemClickListener listener;
-    private int selected;
+    private JRSpinner.OnSelectMultipleListener listener;
+    private List<Integer> selected;
 
-    public Dialog() {
+    public MultipleDialog() {
     }
 
-    public void setListener(JRSpinner.OnItemClickListener listener, JRSpinner view) {
+    public void setListener(JRSpinner.OnSelectMultipleListener listener, JRSpinner view) {
         this.listener = listener;
         this.view = view;
     }
 
-    public static Dialog newInstance(String title, String[] data, int selected) {
-        Dialog instance = new Dialog();
+    public static MultipleDialog newInstance(String title, String[] data, List<Integer> selected) {
+        MultipleDialog instance = new MultipleDialog();
         Bundle arguments = new Bundle();
         arguments.putStringArray("data", data);
         arguments.putString("title", title);
-        arguments.putInt("selected", selected);
+        arguments.putIntegerArrayList("selected", (ArrayList<Integer>) selected);
         instance.setArguments(arguments);
         return instance;
     }
@@ -63,7 +68,7 @@ public class Dialog extends DialogFragment {
         if (getArguments() != null && getArguments().getStringArray("data") != null && getArguments().getString("title") != null) {
             data = getArguments().getStringArray("data");
             title = getArguments().getString("title");
-            selected = getArguments().getInt("selected");
+            selected = new ArrayList<>(getArguments().getIntegerArrayList("selected"));
         }
     }
 
@@ -76,6 +81,7 @@ public class Dialog extends DialogFragment {
         reset = view.findViewById(R.id.reset);
         root = view.findViewById(R.id.root);
         card = view.findViewById(R.id.card);
+        btnSelect = view.findViewById(R.id.btn_select);
         return view;
     }
 
@@ -93,17 +99,29 @@ public class Dialog extends DialogFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        btnSelect.setVisibility(View.VISIBLE);
         if (data != null) {
             tvTitle.setText(title);
-            adapter = new Adapter(false, new Adapter.Listener() {
+            adapter = new Adapter(true, new Adapter.Listener() {
                 @Override
                 public void onClick(Pair<Integer, String> item, int position) {
-                    Dialog.this.view.setText(item.second);
-                    Dialog.this.view.setSelected(item.first);
+//                    MultipleDialog.this.view.setText(item.second);
+//                    MultipleDialog.this.view.setSelected(item.first);
                     if (listener != null) {
-                        listener.onItemClick(position);
+                        if (selected.contains(item.first)) {
+                            for (int i = 0; i < selected.size(); i++) {
+                                if (selected.get(i).equals(item.first)) {
+                                    selected.remove(i);
+                                    adapter.removeSelect(item.first);
+                                    break;
+                                }
+                            }
+                        } else {
+                            selected.add(item.first);
+                            adapter.addSelect(item.first);
+                        }
                     }
-                    dismiss();
+//                    dismiss();
                 }
             });
             recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -138,6 +156,26 @@ public class Dialog extends DialogFragment {
                 }
             });
 
+            btnSelect.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    StringBuilder text = new StringBuilder();
+                    for (int i = 0; i < data.length; i++) {
+                        if (text.length() == 0 && selected.contains(i)) {
+                            text.append(data[i]);
+                        } else if (selected.contains(i)) {
+                            text.append(", ").append(data[i]);
+                        }
+                    }
+                    MultipleDialog.this.view.setText(text);
+                    MultipleDialog.this.view.setSelected(selected);
+                    if (listener != null) {
+                        listener.onMultipleSelected(selected);
+                    }
+                    dismiss();
+                }
+            });
+
             root.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -154,5 +192,11 @@ public class Dialog extends DialogFragment {
         } else {
             dismiss();
         }
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        selected.clear();
     }
 }

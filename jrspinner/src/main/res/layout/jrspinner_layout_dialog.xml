@@ -83,7 +83,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/btn_select"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/search">
@@ -109,6 +109,21 @@
                 app:layout_constraintBottom_toBottomOf="@+id/search"
                 app:layout_constraintStart_toStartOf="@+id/search"
                 app:layout_constraintTop_toTopOf="@+id/search" />
+
+            <Button
+                android:id="@+id/btn_select"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:background="#3897F0"
+                android:text="Select"
+                android:textColor="#ffffff"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v7.widget.CardView>

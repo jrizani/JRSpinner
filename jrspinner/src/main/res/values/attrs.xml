@@ -3,5 +3,6 @@
     <declare-styleable name="JRSpinner">
         <attr name="jrs_title" format="string"/>
         <attr name="jrs_icon_tint" format="color"/>
+        <attr name="jrs_multiple" format="boolean"/>
     </declare-styleable>
 </resources>

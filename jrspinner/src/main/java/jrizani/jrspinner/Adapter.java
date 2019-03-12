@@ -22,10 +22,13 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
     private List<Pair<Integer, String>> items = new ArrayList<>();
     private List<Pair<Integer, String>> allItems = new ArrayList<>();
     private List<Pair<Integer, String>> tempItems = new ArrayList<>();
+    private boolean multiple;
     private Listener listener;
     private int selected;
+    private List<Integer> multipleSelected;
 
-    public Adapter(Listener listener) {
+    public Adapter(boolean multiple, Listener listener) {
+        this.multiple = multiple;
         this.listener = listener;
     }
 
@@ -37,10 +40,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
             this.items.add(new Pair<>(i, items[i]));
             this.allItems.add(new Pair<>(i, items[i]));
         }
+        notifyDataSetChanged();
+    }
+
+    public void update(String[] items, List<Integer> selected) {
+        multipleSelected = new ArrayList<>(selected);
+        this.items.clear();
+        this.allItems.clear();
+        for (int i = 0; i < items.length; i++) {
+            this.items.add(new Pair<>(i, items[i]));
+            this.allItems.add(new Pair<>(i, items[i]));
+        }
+        notifyDataSetChanged();
     }
 
     public void update(String query) {
-        Pair<Integer, String> selectedItem;
         for (Pair<Integer, String> item : allItems) {
             if (item.second.toLowerCase().contains(query.toLowerCase())) {
                 tempItems.add(item);
@@ -76,6 +90,21 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         return items.size();
     }
 
+    public void addSelect(int selected) {
+        multipleSelected.add(selected);
+        notifyDataSetChanged();
+    }
+
+    public void removeSelect(int selected) {
+        for (int i = 0; i < multipleSelected.size(); i++) {
+            if (multipleSelected.get(i).equals(selected)) {
+                multipleSelected.remove(i);
+                break;
+            }
+        }
+        notifyDataSetChanged();
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView label;
@@ -88,9 +117,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         }
 
         void bind(final Pair<Integer, String> item) {
-            if (item.first == selected){
+            if ((multiple && multipleSelected.contains(item.first)) || (!multiple && item.first == selected)) {
                 ivSelected.setVisibility(View.VISIBLE);
-            }else{
+            } else {
                 ivSelected.setVisibility(View.GONE);
             }
 
