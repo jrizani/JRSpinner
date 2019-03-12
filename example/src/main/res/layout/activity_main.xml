@@ -18,13 +18,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <jrizani.jrspinner.JRSpinner
-            android:hint="Choose"
             android:id="@+id/JRSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:hint="Choose"
             android:textColor="@color/colorPrimary"
             app:backgroundTint="@color/colorPrimary"
             app:jrs_icon_tint="@color/colorPrimary"
+            app:jrs_multiple="true"
             app:jrs_title="Choose Item" />
 
     </android.support.design.widget.TextInputLayout>
