@@ -47,6 +47,9 @@ Implement the dependency to your app-level build.gradle
 dependencies {
   ..
   implementation 'com.github.jrizani:JRSpinner:$version'
+  ..
+  //use it if you want use library that used androidx artifact
+  implementation 'com.github.jrizani:JRSpinner:androidx-SNAPSHOT'
 }
 ```
 
