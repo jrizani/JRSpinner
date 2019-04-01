@@ -6,8 +6,8 @@ import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
+import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * custom view that used as spinner
  */
-public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
+public class JRSpinner extends androidx.appcompat.widget.AppCompatEditText {
 
     /**
      * all items text to show in spinner dialog

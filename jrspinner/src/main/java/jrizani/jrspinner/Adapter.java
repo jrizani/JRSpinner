@@ -6,7 +6,7 @@ package jrizani.jrspinner;
 /*         20 Feb 2019         */
 /*=============================*/
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
