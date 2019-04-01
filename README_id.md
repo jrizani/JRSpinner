@@ -49,6 +49,9 @@ Implementasi JRSpinner pada build.gradle level app anda.
 dependencies {
   ..
   implementation 'com.github.jrizani:JRSpinner:$version'
+  ..
+  //jika ingin menggunakan library yang menggunakan artifact androidx
+  implementation 'com.github.jrizani:JRSpinner:androidx-SNAPSHOT'
 }
 ```
 
