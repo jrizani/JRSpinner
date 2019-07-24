@@ -56,6 +56,10 @@ public class Dialog extends DialogFragment {
      * selected position
      */
     private int selected;
+    /**
+     * the text watcher on search box
+     */
+    private TextWatcher watcher;
 
     public Dialog() {
     }
@@ -68,6 +72,14 @@ public class Dialog extends DialogFragment {
     public void setListener(JRSpinner.OnItemClickListener listener, JRSpinner view) {
         this.listener = listener;
         this.view = view;
+    }
+
+    /**
+     * method to add search listener
+     * @param watcher search box text watcher
+     */
+    public void addSearchListener(TextWatcher watcher){
+        this.watcher = watcher;
     }
 
     /**
@@ -169,6 +181,10 @@ public class Dialog extends DialogFragment {
                     etSearch.setText("");
                 }
             });
+
+            if (watcher != null){
+                etSearch.addTextChangedListener(watcher);
+            }
 
             root.setOnClickListener(new View.OnClickListener() {
                 @Override

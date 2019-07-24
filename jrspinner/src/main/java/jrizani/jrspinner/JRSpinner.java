@@ -8,6 +8,7 @@ import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 
 import java.util.ArrayList;
@@ -61,6 +62,10 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
      * listener to listen when multiple item selected (used when use multiple spinner)
      */
     private JRSpinner.OnSelectMultipleListener onSelectMultipleListener;
+    /**
+     * the text watcher on search box
+     */
+    private TextWatcher watcher;
 
     public JRSpinner(Context context) {
         super(context);
@@ -197,6 +202,14 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         this.selected = selected;
     }
 
+    /**
+     * method to add search listener
+     * @param watcher search box text watcher
+     */
+    public void addSearchListener(TextWatcher watcher){
+        this.watcher = watcher;
+    }
+
 
     /**
      *  set selected position. Can use for set default selected position
@@ -227,10 +240,16 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     public boolean performClick() {
         if (!multiple) {
             Dialog dialog = Dialog.newInstance(title, items, selected);
+            if (watcher != null){
+                dialog.addSearchListener(watcher);
+            }
             dialog.setListener(onItemClickListener, JRSpinner.this);
             dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
         } else {
             MultipleDialog dialog = MultipleDialog.newInstance(title, items, multipleSelected);
+            if (watcher != null){
+                dialog.addSearchListener(watcher);
+            }
             dialog.setListener(onSelectMultipleListener, JRSpinner.this);
             dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
         }
