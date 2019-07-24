@@ -197,6 +197,29 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         this.selected = selected;
     }
 
+
+    /**
+     *  set selected position. Can use for set default selected position
+     * @param position selected position
+     */
+    public void select(int position){
+        if (!multiple){
+            selected = position;
+            setText(items[position]);
+        }else{
+            multipleSelected.add(position);
+            setText(items[position]);
+        }
+
+        if (onItemClickListener != null){
+            onItemClickListener.onItemClick(selected);
+        }
+
+        if (onSelectMultipleListener != null){
+            onSelectMultipleListener.onMultipleSelected(multipleSelected);
+        }
+    }
+
     /**
      * call when click on spinner view and show the dialog
      */

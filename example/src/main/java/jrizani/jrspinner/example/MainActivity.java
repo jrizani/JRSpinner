@@ -28,23 +28,25 @@ public class MainActivity extends AppCompatActivity {
         mJRSpinner.setTitle("Choose jrspinner_item programmatically");
         mJRSpinner.setExpandTint(R.color.jrspinner_color_default);
 
-//        mJRSpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(int position) {
-//                mSelectedIndex.setText(position + "");
-//            }
-//        });
-
-        mJRSpinner.setOnSelectMultipleListener(new JRSpinner.OnSelectMultipleListener() {
+        mJRSpinner.setOnItemClickListener(new JRSpinner.OnItemClickListener() {
             @Override
-            public void onMultipleSelected(List<Integer> selectedPosition) {
-                StringBuilder text = new StringBuilder();
-                for (int item: selectedPosition){
-                    text.append(item).append(" | ");
-                }
-                mSelectedIndex.setText(text);
+            public void onItemClick(int position) {
+                mSelectedIndex.setText(position + "");
             }
-        }); //use this listener instead if you use multiple
+        });
+
+        mJRSpinner.select(0);
+
+//        mJRSpinner.setOnSelectMultipleListener(new JRSpinner.OnSelectMultipleListener() {
+//            @Override
+//            public void onMultipleSelected(List<Integer> selectedPosition) {
+//                StringBuilder text = new StringBuilder();
+//                for (int item: selectedPosition){
+//                    text.append(item).append(" | ");
+//                }
+//                mSelectedIndex.setText(text);
+//            }
+//        }); //use this listener instead if you use multiple
 
         mBtnReset.setOnClickListener(new View.OnClickListener() {
             @Override
