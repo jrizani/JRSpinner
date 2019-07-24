@@ -7,6 +7,8 @@ English | [Indonesian](https://github.com/jrizani/JRSpinner/blob/master/README_i
 
 Custom spinner that inspired by instagram language chooser
 
+<a href="https://jrizani.github.io/donate-jrspinner.html"><img src="https://github.com/jrizani/jrizani.github.io/raw/master/images/donate_button.png" width="100px"/></a>
+
 #### [View Releases and Changelogs](https://github.com/jrizani/JRSpinner/releases)
 <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_selected.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_search.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_selected_item.png" width="200px"/>
 
@@ -45,6 +47,9 @@ Implement the dependency to your app-level build.gradle
 dependencies {
   ..
   implementation 'com.github.jrizani:JRSpinner:$version'
+  ..
+  //use it if you want use library that used androidx artifact
+  implementation 'com.github.jrizani:JRSpinner:androidx-SNAPSHOT'
 }
 ```
 

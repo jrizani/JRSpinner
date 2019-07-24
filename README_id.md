@@ -7,6 +7,8 @@
 
 Custom spinner yang terinspirasi dengan spinner pemilihan bahasa pada instagram
 
+<a href="https://jrizani.github.io/donate-jrspinner.html"><img src="https://github.com/jrizani/jrizani.github.io/raw/master/images/donate_button.png" width="100px"/></a>
+
 #### [Lihat daftar release dan changelog](https://github.com/jrizani/JRSpinner/releases)
 <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_selected.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_dialog_search.png" width="200px"/> <img src="https://github.com/jrizani/JRSpinner/raw/master/ss/example_spinner_selected_item.png" width="200px"/>
 
@@ -47,6 +49,9 @@ Implementasi JRSpinner pada build.gradle level app anda.
 dependencies {
   ..
   implementation 'com.github.jrizani:JRSpinner:$version'
+  ..
+  //jika ingin menggunakan library yang menggunakan artifact androidx
+  implementation 'com.github.jrizani:JRSpinner:androidx-SNAPSHOT'
 }
 ```
 
