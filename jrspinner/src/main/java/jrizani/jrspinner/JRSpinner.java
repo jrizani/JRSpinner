@@ -308,7 +308,7 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     }
 
     public boolean isHaveItems(){
-        return items.length > 0;
+        return items != null && items.length > 0;
     }
 
     public void updateItems(String[] newItems){
