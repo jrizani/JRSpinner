@@ -247,4 +247,8 @@ public class MultipleDialog extends DialogFragment {
         super.onDismiss(dialog);
         selected.clear();
     }
+
+    public void updateItems(final String[] newItems) {
+        adapter.update(newItems, new ArrayList<Integer>());
+    }
 }

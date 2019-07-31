@@ -203,4 +203,8 @@ public class Dialog extends DialogFragment {
             dismiss();
         }
     }
+
+    public void updateItems(final String[] newItems) {
+        adapter.update(newItems, -1);
+    }
 }

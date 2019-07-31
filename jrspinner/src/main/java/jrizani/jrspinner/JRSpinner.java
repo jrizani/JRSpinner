@@ -26,6 +26,8 @@ import java.util.List;
  */
 public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
 
+    private Dialog dialog;
+
     /**
      * all items text to show in spinner dialog
      */
@@ -34,6 +36,9 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
      * tint of expand icon
      */
     private int expandTint;
+
+    private MultipleDialog multiDialog;
+
     /**
      * the title of spinner dialog
      */
@@ -239,19 +244,19 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     @Override
     public boolean performClick() {
         if (!multiple) {
-            Dialog dialog = Dialog.newInstance(title, items, selected);
+            dialog = Dialog.newInstance(title, items, selected);
             if (watcher != null){
                 dialog.addSearchListener(watcher);
             }
             dialog.setListener(onItemClickListener, JRSpinner.this);
             dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
         } else {
-            MultipleDialog dialog = MultipleDialog.newInstance(title, items, multipleSelected);
+            multiDialog = MultipleDialog.newInstance(title, items, multipleSelected);
             if (watcher != null){
-                dialog.addSearchListener(watcher);
+                multiDialog.addSearchListener(watcher);
             }
-            dialog.setListener(onSelectMultipleListener, JRSpinner.this);
-            dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
+            multiDialog.setListener(onSelectMultipleListener, JRSpinner.this);
+            multiDialog.show(findActivity(getContext()).getSupportFragmentManager(), multiDialog.getTag());
         }
         return super.performClick();
     }
@@ -300,6 +305,21 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     protected void setSelected(List<Integer> selected) {
         multipleSelected.clear();
         multipleSelected.addAll(selected);
+    }
+
+    public boolean isHaveItems(){
+        return items.length > 0;
+    }
+
+    public void updateItems(String[] newItems){
+        items = newItems;
+        selected = -1;
+        multipleSelected = new ArrayList<>();
+        if (multiple){
+            multiDialog.updateItems(newItems);
+        }else{
+            dialog.updateItems(newItems);
+        }
     }
 
     /**
