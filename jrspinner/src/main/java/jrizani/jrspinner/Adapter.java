@@ -67,6 +67,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         this.selected = selected;
         this.items.clear();
         this.allItems.clear();
+        this.tempItems.clear();
         for (int i = 0; i < items.length; i++) {
             this.items.add(new Pair<>(i, items[i]));
             this.allItems.add(new Pair<>(i, items[i]));
@@ -83,6 +84,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
         multipleSelected = new ArrayList<>(selected);
         this.items.clear();
         this.allItems.clear();
+        this.tempItems.clear();
         for (int i = 0; i < items.length; i++) {
             this.items.add(new Pair<>(i, items[i]));
             this.allItems.add(new Pair<>(i, items[i]));
