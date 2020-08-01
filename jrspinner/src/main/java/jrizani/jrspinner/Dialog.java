@@ -6,21 +6,22 @@ package jrizani.jrspinner;
 /*         19 Feb 2019         */
 /*=============================*/
 
+import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * dialog that showed when use non multiple dialog
@@ -53,9 +54,17 @@ public class Dialog extends DialogFragment {
      */
     private JRSpinner.OnItemClickListener listener;
     /**
+     * on cancel selection listener
+     */
+    private JRSpinner.OnCancelSelectionListener cancelSelectionListener;
+    /**
      * selected position
      */
     private int selected;
+    /**
+     * know if is something selected
+     */
+    private boolean isSomethingSelected;
     /**
      * the text watcher on search box
      */
@@ -66,8 +75,9 @@ public class Dialog extends DialogFragment {
 
     /**
      * method to set the listener
+     *
      * @param listener on click listener
-     * @param view spinner view
+     * @param view     spinner view
      */
     public void setListener(JRSpinner.OnItemClickListener listener, JRSpinner view) {
         this.listener = listener;
@@ -75,17 +85,30 @@ public class Dialog extends DialogFragment {
     }
 
     /**
+     * method to set the on cancel selection listener
+     *
+     * @param listener on cancel selection listener
+     * @param view     spinner view
+     */
+    public void setListener(JRSpinner.OnCancelSelectionListener listener, JRSpinner view) {
+        this.cancelSelectionListener = listener;
+        this.view = view;
+    }
+
+    /**
      * method to add search listener
+     *
      * @param watcher search box text watcher
      */
-    public void addSearchListener(TextWatcher watcher){
+    public void addSearchListener(TextWatcher watcher) {
         this.watcher = watcher;
     }
 
     /**
      * method to create dialog object
-     * @param title title of dialog
-     * @param data items of spinner
+     *
+     * @param title    title of dialog
+     * @param data     items of spinner
      * @param selected selected position
      * @return the dialog
      */
@@ -145,8 +168,9 @@ public class Dialog extends DialogFragment {
                     Dialog.this.view.setText(item.second);
                     Dialog.this.view.setSelected(item.first);
                     if (listener != null) {
-                        listener.onItemClick(position);
+                        listener.onItemClick(position, true);
                     }
+                    isSomethingSelected = true;
                     dismiss();
                 }
             });
@@ -182,7 +206,7 @@ public class Dialog extends DialogFragment {
                 }
             });
 
-            if (watcher != null){
+            if (watcher != null) {
                 etSearch.addTextChangedListener(watcher);
             }
 
@@ -202,6 +226,13 @@ public class Dialog extends DialogFragment {
         } else {
             dismiss();
         }
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
+        if (!isSomethingSelected && cancelSelectionListener != null)
+            cancelSelectionListener.onCancelSelection();
     }
 
     public void updateItems(final String[] newItems) {

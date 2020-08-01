@@ -6,10 +6,12 @@ import android.content.res.TypedArray;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.content.ContextCompat;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+
+import androidx.appcompat.widget.AppCompatEditText;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,7 @@ import java.util.List;
 /**
  * custom view that used as spinner
  */
-public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
+public class JRSpinner extends AppCompatEditText {
 
     private Dialog dialog;
 
@@ -47,6 +49,10 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
      * listener to listen when item click (used when use non multiple spinner)
      */
     private OnItemClickListener onItemClickListener;
+    /**
+     * listener to listen when dialog is canceled
+     */
+    private OnCancelSelectionListener onCancelSelectionListener;
     /**
      * icon of expand
      */
@@ -170,6 +176,15 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     }
 
     /**
+     * add the nothing selected listener
+     *
+     * @param onCancelSelectionListener the listener
+     */
+    public void setOnCancelSelectionListener(OnCancelSelectionListener onCancelSelectionListener) {
+        this.onCancelSelectionListener = onCancelSelectionListener;
+    }
+
+    /**
      * add the select multiple item listener when use multiple spinner
      *
      * @param onSelectMultipleListener the listener
@@ -209,32 +224,33 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
 
     /**
      * method to add search listener
+     *
      * @param watcher search box text watcher
      */
-    public void addSearchListener(TextWatcher watcher){
+    public void addSearchListener(TextWatcher watcher) {
         this.watcher = watcher;
     }
 
 
     /**
-     *  set selected position. Can use for set default selected position
+     * set selected position. Can use for set default selected position
+     *
      * @param position selected position
      */
-    public void select(int position){
-        if (!multiple){
+    public void select(int position) {
+        if (!multiple)
             selected = position;
-            setText(items[position]);
-        }else{
+        else
             multipleSelected.add(position);
-            setText(items[position]);
+
+        setText(items[position]);
+
+        if (onItemClickListener != null) {
+            onItemClickListener.onItemClick(selected, false);
         }
 
-        if (onItemClickListener != null){
-            onItemClickListener.onItemClick(selected);
-        }
-
-        if (onSelectMultipleListener != null){
-            onSelectMultipleListener.onMultipleSelected(multipleSelected);
+        if (onSelectMultipleListener != null) {
+            onSelectMultipleListener.onMultipleSelected(multipleSelected, false);
         }
     }
 
@@ -245,17 +261,19 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
     public boolean performClick() {
         if (!multiple) {
             dialog = Dialog.newInstance(title, items, selected);
-            if (watcher != null){
+            if (watcher != null) {
                 dialog.addSearchListener(watcher);
             }
             dialog.setListener(onItemClickListener, JRSpinner.this);
+            dialog.setListener(onCancelSelectionListener, JRSpinner.this);
             dialog.show(findActivity(getContext()).getSupportFragmentManager(), dialog.getTag());
         } else {
             multiDialog = MultipleDialog.newInstance(title, items, multipleSelected);
-            if (watcher != null){
+            if (watcher != null) {
                 multiDialog.addSearchListener(watcher);
             }
             multiDialog.setListener(onSelectMultipleListener, JRSpinner.this);
+            multiDialog.setListener(onCancelSelectionListener, JRSpinner.this);
             multiDialog.show(findActivity(getContext()).getSupportFragmentManager(), multiDialog.getTag());
         }
         return super.performClick();
@@ -307,17 +325,17 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         multipleSelected.addAll(selected);
     }
 
-    public boolean isHaveItems(){
+    public boolean isHaveItems() {
         return items != null && items.length > 0;
     }
 
-    public void updateItems(String[] newItems){
+    public void updateItems(String[] newItems) {
         items = newItems;
         selected = -1;
         multipleSelected = new ArrayList<>();
-        if (multiple){
+        if (multiple) {
             multiDialog.updateItems(newItems);
-        }else{
+        } else {
             dialog.updateItems(newItems);
         }
     }
@@ -326,13 +344,20 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
      * the item click listener
      */
     public interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(int position, boolean userClick);
+    }
+
+    /**
+     * the item click listener
+     */
+    public interface OnCancelSelectionListener {
+        void onCancelSelection();
     }
 
     /**
      * the select multiple listener
      */
     public interface OnSelectMultipleListener {
-        void onMultipleSelected(List<Integer> selectedPosition);
+        void onMultipleSelected(List<Integer> selectedPosition, boolean userClick);
     }
 }
