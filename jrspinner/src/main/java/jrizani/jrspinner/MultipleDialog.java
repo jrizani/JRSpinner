@@ -8,10 +8,6 @@ package jrizani.jrspinner;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Pair;
@@ -22,6 +18,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,9 +59,17 @@ public class MultipleDialog extends DialogFragment {
      */
     private JRSpinner.OnSelectMultipleListener listener;
     /**
+     * on cancel selection listener
+     */
+    private JRSpinner.OnCancelSelectionListener cancelSelectionListener;
+    /**
      * selected items position
      */
     private List<Integer> selected;
+    /**
+     * know if is something selected
+     */
+    private boolean isSomethingSelected;
     /**
      * the text watcher on search box
      */
@@ -71,8 +80,9 @@ public class MultipleDialog extends DialogFragment {
 
     /**
      * method to set the listener
+     *
      * @param listener on multiple items selected listener
-     * @param view spinner view
+     * @param view     spinner view
      */
     public void setListener(JRSpinner.OnSelectMultipleListener listener, JRSpinner view) {
         this.listener = listener;
@@ -80,17 +90,30 @@ public class MultipleDialog extends DialogFragment {
     }
 
     /**
+     * method to set the on cancel selection listener
+     *
+     * @param listener on cancel selection listener
+     * @param view     spinner view
+     */
+    public void setListener(JRSpinner.OnCancelSelectionListener listener, JRSpinner view) {
+        this.cancelSelectionListener = listener;
+        this.view = view;
+    }
+
+    /**
      * method to add search listener
+     *
      * @param watcher search box text watcher
      */
-    public void addSearchListener(TextWatcher watcher){
+    public void addSearchListener(TextWatcher watcher) {
         this.watcher = watcher;
     }
 
     /**
      * method to create dialog object
-     * @param title title of dialog
-     * @param data items of spinner
+     *
+     * @param title    title of dialog
+     * @param data     items of spinner
      * @param selected selected items position
      * @return the dialog
      */
@@ -214,13 +237,14 @@ public class MultipleDialog extends DialogFragment {
                     MultipleDialog.this.view.setText(text);
                     MultipleDialog.this.view.setSelected(selected);
                     if (listener != null) {
-                        listener.onMultipleSelected(selected);
+                        listener.onMultipleSelected(selected, true);
                     }
+                    isSomethingSelected = true;
                     dismiss();
                 }
             });
 
-            if (watcher != null){
+            if (watcher != null) {
                 etSearch.addTextChangedListener(watcher);
             }
 
@@ -245,6 +269,8 @@ public class MultipleDialog extends DialogFragment {
     @Override
     public void onDismiss(DialogInterface dialog) {
         super.onDismiss(dialog);
+        if (!isSomethingSelected && cancelSelectionListener != null)
+            cancelSelectionListener.onCancelSelection();
         selected.clear();
     }
 

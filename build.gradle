@@ -2,12 +2,19 @@
 
 buildscript {
     repositories {
+
+        maven { url "http://127.0.0.1:8088/repository/dl.google/"}
+        maven { url "http://127.0.0.1:8088/repository/maven-central/"}
+        maven { url "http://127.0.0.1:8088/repository/maven.google/"}
+        maven { url "http://127.0.0.1:8088/repository/jitpack/"}
+        maven { url "http://127.0.0.1:8088/repository/jcenter/"}
+
         google()
         jcenter()
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.3.1'
+        classpath 'com.android.tools.build:gradle:3.5.3'
         
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -16,6 +23,13 @@ buildscript {
 
 allprojects {
     repositories {
+
+        maven { url "http://127.0.0.1:8088/repository/dl.google/"}
+        maven { url "http://127.0.0.1:8088/repository/maven-central/"}
+        maven { url "http://127.0.0.1:8088/repository/maven.google/"}
+        maven { url "http://127.0.0.1:8088/repository/jitpack/"}
+        maven { url "http://127.0.0.1:8088/repository/jcenter/"}
+
         google()
         jcenter()
         
