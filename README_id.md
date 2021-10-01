@@ -1,3 +1,6 @@
+| :warning: **Library ini tidak lagi dikembangkan** |
+|---|
+
 [English](https://github.com/jrizani/JRSpinner/blob/master/README.md) | Indonesian
 
 # JRSpinner
