@@ -1,3 +1,6 @@
+| :warning: **This project is no longer maintained** |
+|---|
+
 English | [Indonesian](https://github.com/jrizani/JRSpinner/blob/master/README_id.md)
 
 # JRSpinner
