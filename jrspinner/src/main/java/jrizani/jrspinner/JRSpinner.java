@@ -140,6 +140,18 @@ public class JRSpinner extends android.support.v7.widget.AppCompatEditText {
         this.items = items;
         postInvalidate();
     }
+    
+    /**
+     * method to get an item from the set items list
+     *
+     * @param position of the desired item
+     */
+    public String getItem(int position) {
+        if (position > -1 && position < items.length){
+            return items[position];
+        }
+        throw new ArrayIndexOutOfBoundsException("Position does not exists on array.");
+    }
 
     /**
      * method to set the title of spinner dialog
